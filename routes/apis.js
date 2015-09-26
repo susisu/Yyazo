@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var charsets = new Map();
-charsets.set('http://www002.upp.so-net.ne.jp/latex/kigou_all.html', 'Shift_JIS');
 
 /* GET character set. */
 router.get('/charset', function(req, res, next) {
@@ -14,6 +13,12 @@ router.get('/charset', function(req, res, next) {
     res.status(404);
     res.send('');
   }
+});
+
+/* POST register character set. */
+router.post('/register', function(req, res, next) {
+    charsets.set(req.body.url, req.body.charset);
+    res.send(req.body.charset);
 });
 
 module.exports = router;
